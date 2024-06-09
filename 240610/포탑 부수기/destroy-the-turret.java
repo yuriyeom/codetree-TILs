@@ -35,6 +35,7 @@ public class Main {
     
         // K번 반복. 포탑이 하나도 부서지지 않으면 종료
         boolean finish;
+        int time = 0;
         while(K-- > 0){
             finish = true;
 
@@ -85,12 +86,14 @@ public class Main {
             // 최단경로가 있으면
             if(result != null){
                 target.power -= t.power;
+                target.time = time++;
                 // 경로에 있는 포탑에도 t.power/2만큼 피해
                 // todo
                 for(int[] r : result){
                     for(Turret turret : list){
                         if(r[0] == turret.x && r[1] == turret.y){
                             turret.power -= t.power / 2;
+                            turret.time = time++;
                             visited[r[0]][r[1]] = true;
                             break;
                         }
@@ -101,6 +104,7 @@ public class Main {
             // 최단경로가 없으면 포탄 공격
             else{
                 target.power -= t.power;
+                target.time = time++;
                 int[] ddx = {0, 0, 1, 1, 1, -1, -1, -1};
                 int[] ddy = {1, -1, -1, 0, 1, -1, 0, 1};
 
@@ -118,6 +122,7 @@ public class Main {
                     for(Turret turret : list){
                         if(turret.x == nx && turret.y == ny){
                             turret.power -= t.power/2;
+                            turret.time = time++;
                             visited[turret.x][turret.y] = true;
                         }
                     }
@@ -134,11 +139,18 @@ public class Main {
             if(finish) break;
 
             // 4. 포탑 정비
-
             for(Turret turret : list){
                 if(visited[turret.x][turret.y]) continue;
                 turret.power++;
             }
+            
+            ArrayList<Turret> newList = new ArrayList<>();
+
+            for(Turret turret : list){
+                if(turret.power > 0) newList.add(turret);
+            }
+
+            list = newList;
         }
         
         int max = 0;
