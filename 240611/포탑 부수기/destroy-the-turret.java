@@ -37,7 +37,6 @@ public class Main {
         int time = 1;
         while(K-- > 0){
             visited = new boolean[N+1][M+1];
-            System.out.println("========" + K);
             // for(Turret turret : list){
             //     System.out.println(turret);
             // }
@@ -63,7 +62,7 @@ public class Main {
             t.power += N + M;
             t.time = time++;
             visited[t.x][t.y] = true;
-            System.out.println("공격자 " + t);
+            // System.out.println("공격자 " + t);
 
             // 2. 공격자의 공격
             // 가장 강한 포탑 선정
@@ -89,13 +88,13 @@ public class Main {
             }
             
             visited[target.x][target.y] = true;
-            System.out.println("가장 강한 포탑 " + target);
+            // System.out.println("가장 강한 포탑 " + target);
 
             // 레이저 공격
             ArrayList<int[]> result = bfs(t.x, t.y, target.x, target.y);
             // 최단경로가 있으면
             if(result != null){
-                System.out.println("레이저 공격");
+                // System.out.println("레이저 공격");
                 target.power -= t.power;
                 // 경로에 있는 포탑에도 t.power/2만큼 피해
                 for(int[] r : result){
@@ -111,7 +110,7 @@ public class Main {
             
             // 최단경로가 없으면 포탄 공격
             else{
-                System.out.println("포탄 공격");
+                // System.out.println("포탄 공격");
                 target.power -= t.power;
                 int[] ddx = {0, 0, 1, 1, 1, -1, -1, -1};
                 int[] ddy = {1, -1, -1, 0, 1, -1, 0, 1};
@@ -163,17 +162,17 @@ public class Main {
 
             if(list.size() == 1) break;
 
-            int[][] map = new int[N+1][M+1];
-            for(Turret turret : list){
-                map[turret.x][turret.y] = turret.power;
-            }
+            // int[][] map = new int[N+1][M+1];
+            // for(Turret turret : list){
+            //     map[turret.x][turret.y] = turret.power;
+            // }
 
-            for(int i=1; i<=N; i++){
-                for(int j=1; j<=M; j++){
-                    System.out.print(map[i][j] + " ");
-                }
-                System.out.println();
-            } 
+            // for(int i=1; i<=N; i++){
+            //     for(int j=1; j<=M; j++){
+            //         System.out.print(map[i][j] + " ");
+            //     }
+            //     System.out.println();
+            // } 
         }
    
     
@@ -252,7 +251,7 @@ public class Main {
                 if(visited[nx][ny]) continue;
                 if(isBroken[nx][ny]) continue;
 
-                queue.offer(new Point(nx, ny, p.route));
+                queue.offer(new Point(nx, ny));
                 route[nx][ny] = route[p.x][p.y] + 1;
                 visited[nx][ny] = true;
             }
