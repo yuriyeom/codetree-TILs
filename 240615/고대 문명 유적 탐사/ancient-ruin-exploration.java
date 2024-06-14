@@ -63,11 +63,13 @@ public class Main {
         for(int w : wallArr)
             tempWall.offer(w);
         while(K-- > 0){
+            // System.out.println("=====" + K);
             finish = true;
             ans = 0;
 
             // 탐사
             int[] way = proceedTamsa(map, wallArr);  // 1차획득, 회전각도, 중심x, 중심y
+            // System.out.println(way[0] + " " + way[1] + " " + way[2] + " " + way[3]);
 
             rotation(way[2], way[3], map, way[1]);
 
@@ -137,9 +139,9 @@ public class Main {
             if(a[0] == b[0]){
                 if(a[1] == b[1]){
                     if(a[2] == b[2]){
-                        return Integer.compare(a[3], b[3]);
+                        return Integer.compare(a[2], b[2]);
                     }
-                    return Integer.compare(a[2], b[2]);
+                    return Integer.compare(a[3], b[3]);
                 }
                 return Integer.compare(a[1], b[1]);
             }
